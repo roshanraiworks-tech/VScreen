@@ -1,4 +1,3 @@
-#hello
 name: Deploy to Firebase Hosting on merge
 on:
   push:
@@ -12,9 +11,14 @@ jobs:
       # - run: npm ci && npm run build
       - run: npm ci
         working-directory: client
+        env:
+          VITE_SERVER_URL: https://vscreen.onrender.com
 
       - run: npm run build
         working-directory: client
+        env:
+          VITE_SERVER_URL: https://vscreen.onrender.com
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
