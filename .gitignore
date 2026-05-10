@@ -1,0 +1,20 @@
+# Secrets
+*.json
+serviceAccount*.json
+*-key.json
+.env*
+shared/package.json
+
+# Large uploads - NEVER commit these
+server/uploads/
+*.mp4
+*.mov
+*.avi
+
+# Dependencies
+node_modules/
+dist/
+build/
+
+.DS_Store
+EOF
