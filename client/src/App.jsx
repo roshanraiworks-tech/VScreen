@@ -25,6 +25,9 @@ function App () {
   const videoRef = useRef(null)
   const isRemoteUpdateRef = useRef(false)
 
+  const SERVER_URL =
+  import.meta.env.VITE_SERVER_URL || 'https://vscreen.onrender.com'
+
   // const localCallVideoRef = useRef(null)
   // const remoteCallVideoRef = useRef(null)
   // const localStreamRef = useRef(null)
@@ -79,7 +82,7 @@ function App () {
     const fetchHealth = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_SERVER_URL}/api/health`
+          `${SERVER_URL}/api/health`
         )
         const data = await response.json()
         setHealthMessage(data.message)
@@ -124,7 +127,7 @@ function App () {
       setCurrentMedia(currentMedia || null)
 
       if (videoRef.current && currentMedia?.url) {
-        videoRef.current.src = `${import.meta.env.VITE_SERVER_URL}${
+        videoRef.current.src = `${SERVER_URL}${
           currentMedia.url
         }`
         videoRef.current.currentTime = playbackState?.currentTime || 0
@@ -226,7 +229,7 @@ function App () {
       const token = await authUser.getIdToken()
 
       const response = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/api/rooms/create`,
+        `${SERVER_URL}/api/rooms/create`,
         {
           method: 'POST',
           headers: {
@@ -305,7 +308,7 @@ function App () {
       const token = await authUser.getIdToken()
 
       const response = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/api/uploads`,
+        `${SERVER_URL}/api/uploads`,
         {
           method: 'POST',
           headers: {
@@ -566,7 +569,7 @@ function App () {
                     ref={videoRef}
                     controls={isHost}
                     className='w-full rounded-3xl border border-slate-800/80 bg-black shadow-2xl'
-                    src={`${import.meta.env.VITE_SERVER_URL}${
+                    src={`${SERVER_URL}${
                       currentMedia.url
                     }`}
                     onPlay={handlePlay}
@@ -662,7 +665,7 @@ function App () {
               </div>
             ) : (
               mediaList.map(item => {
-                const fileUrl = `${import.meta.env.VITE_SERVER_URL}${item.url}`
+                const fileUrl = `${SERVER_URL}${item.url}`
                 const isVideo = item.mimeType?.startsWith('video/')
                 // const isImage = item.mimeType?.startsWith('image/')
                 // const isPdf = item.mimeType === 'application/pdf'
@@ -812,7 +815,7 @@ function App () {
                   ref={videoRef}
                   controls={isHost}
                   className='vs-video-player'
-                  src={`${import.meta.env.VITE_SERVER_URL}${currentMedia.url}`}
+                  src={`${SERVER_URL}${currentMedia.url}`}
                   onPlay={handlePlay}
                   onPause={handlePause}
                   onSeeked={handleSeek}
